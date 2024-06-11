@@ -11,8 +11,6 @@ ORDER BY key DESC, priority DESC
 """
 
 
-#Тестовый апи токен e8ea74c870083e7c28c5d89482853e1c1b3d2dd6bde465354480cdc7804fabbd
-#Реальный апи токен 5dad3438e15f52f629379ce51ca4d16504e27ef9c58a01b99865a8f6dda934dd
 options = Options()
 options.add_argument("--headless")
 options.add_argument("--disable-gpu")
