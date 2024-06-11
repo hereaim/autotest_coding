@@ -141,13 +141,7 @@ def AddInQase():
     # Словарь для suite_id в зависимости от fix_versions
     # fix_versions в Jira: id suite в Qase
     fix_version_suite_map = {
-        "Запланировать в rc-12, Запланировать в kuz-rc-1": 1,
-        "Запланировать в kuz-rc-1": 2,
-        "RC-11": 3,
-        "Запланировать в rc-12": 4,
-        "RC-11, Запланировать в rc-12": 4,
-        "RC-11, Запланировать в rc-12, Запланировать в kuz-rc-1": 4,
-        "": 5
+        "fix_version": 3
     }
 
     def create_payload(i, suite_id):
