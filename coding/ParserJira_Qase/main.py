@@ -3,21 +3,12 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 import config
-""" Просто запрос в жиру
-statusCategory = done AND project = 10600 AND type = Задача 
-and (fixVersion in ("Запланировать в kuz-rc-1","Запланировать в rc-12","RC-11")) 
-and (summary !~  "Релиз" and summary !~"%MAIN%" and  summary !~ "%regress%") 
-ORDER BY key DESC, priority DESC
-"""
-
 
 options = Options()
 options.add_argument("--headless")
 options.add_argument("--disable-gpu")
 options.add_argument("--no-sandbox")
 driver = webdriver.Chrome(options=options)
-
-
 
 def GetIdSuite():
     url = config.base_url_case
@@ -30,7 +21,7 @@ def GetIdSuite():
 
 def MiniParserJira():
     list_summary, list_summary_url, list_href, list_name, list_priority, list_fix_versions, full_list_sprint, list_last_sprint = [], [], [], [], [], [], [], []
-    driver.get('file:///C:/Users/Sayonara/Downloads/SmartCityCloud%20JIRA%202024-06-11T17_58_43+0600.html')
+    driver.get('file:///')
     getUrl = driver.find_elements(By.CLASS_NAME, 'issue-link')
     getSummary = driver.find_elements(By.CLASS_NAME, 'summary')
     getName = driver.find_elements(By.CLASS_NAME, 'issue-link')
