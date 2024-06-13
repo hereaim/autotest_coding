@@ -10,6 +10,7 @@ options.add_argument("--disable-gpu")
 options.add_argument("--no-sandbox")
 driver = webdriver.Chrome(options=options)
 
+"""Получение ID Suite"""
 def GetIdSuite():
     url = config.base_url_case
     headers = {
@@ -19,6 +20,7 @@ def GetIdSuite():
     response = requests.get(url, headers=headers)
     print(response.text)
 
+"""Парсер данных из экспортированного файла Jira с наименованиями, приоритетом, версии, спринтом"""
 def MiniParserJira():
     list_summary, list_summary_url, list_href, list_name, list_priority, list_fix_versions, full_list_sprint, list_last_sprint = [], [], [], [], [], [], [], []
     driver.get('file:///')
@@ -27,7 +29,7 @@ def MiniParserJira():
     getName = driver.find_elements(By.CLASS_NAME, 'issue-link')
     getPriority = driver.find_elements(By.CLASS_NAME, 'priority')
     getFixVersions = driver.find_elements(By.CLASS_NAME, 'fixVersions')
-    getSprint = driver.find_elements(By.CLASS_NAME, 'customfield_10101')
+    getSprint = driver.find_elements(By.CLASS_NAME, 'customfield_10101') #Кастомное поле в Jira, class смотреть через консоль
     for summary in getSummary:#Получение наименования тикета
         list_summary.append(summary.text)
     for getHref in getUrl:#Получение ссылки на тикет
@@ -44,6 +46,7 @@ def MiniParserJira():
         list_last_sprint.append(last_value)
     return list_summary, list_href, list_name, list_priority, list_fix_versions, list_last_sprint
 
+"""Получение списка всех существующих кейсов в qase на данный момент"""
 def get_existing_titles():
     base_url = config.base_url_case
     headers = {
@@ -71,7 +74,7 @@ def get_existing_titles():
         if offset >= data.get('result', {}).get('total', 0):
             break
     return titles
-
+"""Извлекает все существующие наименования из title и сравнивает с текущими list_name[i] - list_summary. При наличии одинаковых - пропускает"""
 def fetch_all_cases():
     base_url = config.base_url_case
     headers = {
@@ -143,7 +146,7 @@ def AddInQase():
     fix_version_suite_map = {
         "fix_version": 3
     }
-
+"""Создание полезной нагрузки"""
     def create_payload(i, suite_id):
         priority = priority_map.get(list_priority[i], 0)
         severity = severity_map.get(list_priority[i], 0)
